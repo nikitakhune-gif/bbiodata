@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="mr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QR बनवा</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+body{font-family:system-ui,sans-serif;max-width:480px;margin:40px auto;padding:0 16px;color:#2B1A17}
+input{width:100%;padding:10px;font-size:16px;margin:8px 0 14px;border:1.5px solid #8A1C2C;border-radius:8px}
+button{padding:10px 18px;font-size:16px;background:#8A1C2C;color:#fff;border:0;border-radius:8px;cursor:pointer}
+#qr{margin:24px 0}
+</style></head><body>
+<h2>Biodata QR Code</h2>
+<p>Website online zhalyavar tyacha link ithe paste kara:</p>
+<input id="url" placeholder="https://tumcha-biodata.netlify.app">
+<button onclick="make()">QR बनवा</button>
+<div id="qr"></div>
+<button id="dl" style="display:none" onclick="save()">QR download (PNG)</button>
+<script>
+var q;
+function make(){
+  var u=document.getElementById('url').value.trim();
+  if(!u){alert('Link taka');return;}
+  document.getElementById('qr').innerHTML='';
+  q=new QRCode(document.getElementById('qr'),{text:u,width:320,height:320,correctLevel:QRCode.CorrectLevel.H});
+  document.getElementById('dl').style.display='inline-block';
+}
+function save(){
+  setTimeout(function(){
+    var c=document.querySelector('#qr canvas');
+    var a=document.createElement('a');a.download='biodata-qr.png';a.href=c.toDataURL('image/png');a.click();
+  },100);
+}
+</script></body></html>
